@@ -67,7 +67,7 @@ resource "aws_ecr_repository" "java_app" {
 resource "docker_image" "python_app" {
   name         = "${aws_ecr_repository.python_app.repository_url}:latest"
   build {
-    context    = "/Users/unbxd/ecr-eks/docker/python"
+    context    = "/home/ec2-user/ecr-eks/docker/python"
     dockerfile = "Dockerfile"
   }
 }
@@ -76,7 +76,7 @@ resource "docker_image" "python_app" {
 resource "docker_image" "java_app" {
   name         = "${aws_ecr_repository.java_app.repository_url}:latest"
   build {
-    context    = "/Users/unbxd/ecr-eks/docker/java"
+    context    = "/home/ec2-user/ecr-eks/docker/java"
     dockerfile = "Dockerfile"
   }
 }
