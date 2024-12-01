@@ -67,7 +67,7 @@ resource "aws_ecr_repository" "java_app" {
 resource "docker_image" "python_app" {
   name         = "${aws_ecr_repository.python_app.repository_url}:latest"
   build {
-    context    = "/home/latheef/eks-ecs/docker/python"
+    context    = "/Users/unbxd/ecr-eks/docker/python"
     dockerfile = "Dockerfile"
   }
 }
@@ -76,7 +76,7 @@ resource "docker_image" "python_app" {
 resource "docker_image" "java_app" {
   name         = "${aws_ecr_repository.java_app.repository_url}:latest"
   build {
-    context    = "/home/latheef/eks-ecs.old/docker/java"
+    context    = "/Users/unbxd/ecr-eks/docker/java"
     dockerfile = "Dockerfile"
   }
 }
@@ -86,10 +86,10 @@ resource "null_resource" "docker_ecr_login_python" {
   provisioner "local-exec" {
     environment = {
       "AWS_PROFILE"     = "sreenivas"  # Use your profile name
-      "AWS_DEFAULT_REGION" = "ap-south-1"
+      "AWS_DEFAULT_REGION" = "ap-southeast-2"
     }
     command = <<EOT
-      aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${aws_ecr_repository.python_app.repository_url}
+      aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin ${aws_ecr_repository.python_app.repository_url}
     EOT
   }
 }
@@ -99,10 +99,10 @@ resource "null_resource" "docker_ecr_login_java" {
   provisioner "local-exec" {
     environment = {
       "AWS_PROFILE"     = "sreenivas"  # Use your profile name
-      "AWS_DEFAULT_REGION" = "ap-south-1"
+      "AWS_DEFAULT_REGION" = "ap-southeast-2"
     }
     command = <<EOT
-      aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${aws_ecr_repository.java_app.repository_url}
+      aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin ${aws_ecr_repository.java_app.repository_url}
     EOT
   }
 }
