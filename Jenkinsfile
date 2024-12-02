@@ -16,7 +16,7 @@ pipeline {
         stage('Initializing Terraform'){
             steps{
                 script{
-                    dir('terraform'){
+                    dir('ecr-eks'){
                          sh 'terraform init'
                     }
                 }
@@ -25,7 +25,7 @@ pipeline {
         stage('Validating Terraform'){
             steps{
                 script{
-                    dir('terraform'){
+                    dir('ecr-eks'){
                          sh 'terraform validate'
                     }
                 }
@@ -34,7 +34,7 @@ pipeline {
         stage('Previewing the infrastructure'){
             steps{
                 script{
-                    dir('terraform'){
+                    dir('ecr-eks'){
                          sh 'terraform plan'
                     }
                     input(message: "Approve?", ok: "proceed")
@@ -44,7 +44,7 @@ pipeline {
         stage('Create/Destroy an EKS cluster'){
             steps{
                 script{
-                    dir('terraform'){
+                    dir('ecr-eks'){
                          sh 'terraform $action --auto-approve'
                     }
                 }
