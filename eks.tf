@@ -1,6 +1,6 @@
 # IAM Role for Node Group
 resource "aws_iam_role" "node_group" {
-  name = "eks-node-group-role"
+  name = "eks-role-node-group"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
