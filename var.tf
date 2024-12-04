@@ -1,4 +1,8 @@
 # Variables
+variable "access_key" {}
+variable "secret_key" {}
+
+
 variable "cluster_name" {
   description = "Name of the EKS cluster"
   type        = string
@@ -46,3 +50,4 @@ variable "min_size" {
   type        = number
   default     = 1
 }
+
