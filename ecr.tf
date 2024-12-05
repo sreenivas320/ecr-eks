@@ -17,7 +17,7 @@ terraform {
  # profile = "sreenivas"
 #}
 
- Docker Provider Configuration
+ #Docker Provider Configuration
 provider "docker" {
   host = "unix:///var/run/docker.sock"
 }
