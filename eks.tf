@@ -1,4 +1,4 @@
-# IAM Role for Node Group
+# IAM Role for Node group
 resource "aws_iam_role" "node_group" {
   name = "eks-node-group-role1"
 
