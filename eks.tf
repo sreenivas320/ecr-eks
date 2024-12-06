@@ -1,13 +1,13 @@
 # IAM Role for Node Group
 resource "aws_iam_role" "node_group" {
-  name = "eks-node-group-role"
+  name = "eks-node-group-role1"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
-        Action    = "sts:AssumeRole",
-        Effect    = "Allow",
+        Action = "sts:AssumeRole",
+        Effect = "Allow",
         Principal = {
           Service = "ec2.amazonaws.com"
         }
@@ -18,8 +18,8 @@ resource "aws_iam_role" "node_group" {
 
 # Attach IAM Policies to Node Group Role
 resource "aws_iam_role_policy_attachment" "node_group_policies" {
-  count      = 3
-  role       = aws_iam_role.node_group.name
+  count = 3
+  role  = aws_iam_role.node_group.name
   policy_arn = element([
     "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
     "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
@@ -29,12 +29,12 @@ resource "aws_iam_role_policy_attachment" "node_group_policies" {
 
 # EKS Cluster Module
 module "eks" {
-  source                  = "terraform-aws-modules/eks/aws"
-  version                 = "~> 19.0"
-  cluster_name            = var.cluster_name
-  cluster_version         = var.cluster_version
-  vpc_id                  = aws_vpc.eks-cluster-vpc.id
-  subnet_ids              = aws_subnet.public[*].id
+  source                    = "terraform-aws-modules/eks/aws"
+  version                   = "~> 19.0"
+  cluster_name              = var.cluster_name
+  cluster_version           = var.cluster_version
+  vpc_id                    = aws_vpc.eks-cluster-vpc.id
+  subnet_ids                = aws_subnet.public[*].id
   create_aws_auth_configmap = false # Disable auto-creation of aws-auth
 }
 
@@ -55,10 +55,10 @@ resource "aws_eks_node_group" "worker_nodes" {
 
   # Tags applied to the Node Group (and propagated to the instances)
   tags = {
-    Name             = "eks-worker-group"
+    Name = "eks-worker-group"
     #environment      = var.environment
     #application      = var.application
-    managed-by       = "terraform"
+    managed-by = "terraform"
   }
 
   # Additional labels for Kubernetes nodes
@@ -66,7 +66,7 @@ resource "aws_eks_node_group" "worker_nodes" {
     "node-type" = "worker"
   }
 
-  }
+}
 
 
 
